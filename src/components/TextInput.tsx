@@ -5,6 +5,7 @@ type Props = {
   id?: string;
   placeholder?: string;
   error?: string;
+  value?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 };
 
@@ -13,6 +14,7 @@ export default function TextInput({
   id,
   placeholder,
   error,
+  value,
   onChange,
 }: Props) {
   return (
@@ -25,6 +27,7 @@ export default function TextInput({
           name={name}
           id={id}
           placeholder={placeholder}
+          value={value}
         />
         {error ? (
           <span

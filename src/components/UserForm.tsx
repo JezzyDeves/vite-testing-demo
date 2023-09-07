@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { z } from "zod";
 import TextInput from "./TextInput";
+import { useFormDataStore } from "../stores/useFormDataStore";
 
 type Props = {};
 
 const validationSchema = z.object({
   username: z.string().nonempty("Please enter a username"),
 });
-type FormSchema = z.infer<typeof validationSchema>;
+export type FormSchema = z.infer<typeof validationSchema>;
 
 export default function UserForm({}: Props) {
-  const [formData, setFormData] = useState<FormSchema>({ username: "" });
+  const [formData, setFormData] = useFormDataStore((state) => [
+    state.formData,
+    state.setFormData,
+  ]);
   const [errors, setErrors] = useState<z.ZodError<FormSchema>>();
 
   return (
@@ -36,6 +40,7 @@ export default function UserForm({}: Props) {
           }
           error={errors?.formErrors.fieldErrors.username?.[0]}
           placeholder="Username"
+          value={formData.username}
         />
 
         <div>
